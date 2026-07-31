@@ -48,22 +48,57 @@ export default function UpdateNetworth() {
         }));
     }
 
-    async function updateNetworthSnapshots(accounts) {
+    async function updateAccounts(accounts) {
+        for (const account of accounts) {
+            const { error } = await supabase
+                .from("accounts")
+                .update({
+                    balance: account.balance,
+                    last_updated: new Date().toISOString()
+                })
+                .eq("id", account.id);
+
+            if (error) {
+                console.log(error);
+                return;
+            }
+        }
+    }
+
+    async function createNetworthSnapshot(accounts) {
         const assetTotal = totalBalanceByType(accounts, "asset");
         const liabilityTotal = totalBalanceByType(accounts, "liability");
-        const networthTotal = assetTotal - liabilityTotal;
 
-        try {
-            await supabase
-                .from("networth_snapshots")
-                .insert({
-                    asset_total: assetTotal,
-                    liability_total: liabilityTotal,
-                    networth_total: networthTotal
-                })
-        } catch (error) {
-            console.log(error)
-        }
+        const { data, error } = await supabase
+            .from("networth_snapshots")
+            .insert({
+                asset_total: assetTotal,
+                liability_total: liabilityTotal,
+                networth_total: assetTotal - liabilityTotal
+            })
+            .select()
+            .single();
+
+        if (error) throw error;
+
+        return data.id;
+    }
+
+    async function createAccountSnapshots(accounts, snapshotId) {
+        const snapshotRows = accounts.map(account => ({
+            snapshot_id: snapshotId,
+            account_id: account.id,
+            account_name: account.name,
+            balance: account.balance,
+            balance_type: account.balance_type,
+            account_type: account.account_type
+        }));
+
+        const { error } = await supabase
+            .from("account_snapshots")
+            .insert(snapshotRows);
+
+        if (error) throw error;
     }
 
     async function handleUpdateNetworth(e) {
@@ -71,27 +106,30 @@ export default function UpdateNetworth() {
 
         setSuccessMessage('');
 
-        const updates = Object.entries(updatedBalances);
+        try {
+            //Build final account balances
+            const snapshotAccounts = accounts.map(account => ({
+                ...account,
+                balance: Number(updatedBalances[account.id] ?? account.balance)
+            }));
 
-        for (const [id, balance] of updates) {
-            try {
-                await supabase
-                    .from("accounts")
-                    .update({
-                        balance: Number(balance),
-                        last_updated: new Date().toISOString()
-                    })
-                    .eq("id", id)
-            } catch (error) {
-                console.log(error)
-            } finally {
-                getAccounts();
-                setSuccessMessage('Your Net Worth was successfully updated!');
-            }
+            //update current acounts table
+            await updateAccounts(snapshotAccounts);
 
+            //create networth snapshot id
+            const snapshotId = await createNetworthSnapshot(snapshotAccounts);
+
+            //create account snapshots
+            await createAccountSnapshots(snapshotAccounts, snapshotId);
+
+            //refresh UI
+            await getAccounts();
+
+            setUpdatedBalances({});
+            setSuccessMessage("Your net worth was successfully updated!");
+        } catch (error) {
+            console.log(error);
         }
-
-        updateNetworthSnapshots(accounts);
     }
 
     return (

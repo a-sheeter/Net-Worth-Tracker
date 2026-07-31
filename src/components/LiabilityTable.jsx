@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 // hooks
 import useAccounts from "../hooks/useAccounts";
+import useUser from "../hooks/useUser";
 
 // data
 import { accountTypes } from "../constants/accountTypes";
@@ -10,6 +11,7 @@ import { accountTypes } from "../constants/accountTypes";
 //utils 
 import { formatCurrency } from "../utils/formatters";
 import { totalBalanceByType } from "../utils/calculations";
+import { supabase } from "../utils/supabase";
 
 export default function LiabilityTable() {
 
@@ -18,6 +20,26 @@ export default function LiabilityTable() {
         accounts,
         handleDeleteAccount
     } = useAccounts();
+
+    const { user } = useUser();
+
+     /* --- functions --- */
+     async function getAccountSnapshots(accountId) {
+
+        if (!user) return;
+
+        const {data, error} = await supabase
+            .from("account_snapshots")
+            .select("*")
+            .eq("user_id", user.id)
+            .eq("account_id", accountId)
+
+        if (error) {
+            console.log(error)
+        }
+
+        console.log(data);
+     }
 
 
     return (
@@ -51,7 +73,7 @@ export default function LiabilityTable() {
                         if (account.balance_type === "liability") {
                             return (
                                 <tr key={account.id}>
-                                    <td>{account.name}</td>
+                                    <td><button onClick={() => getAccountSnapshots(account.id)}>{account.name}</button></td>
                                     <td>{formatCurrency(account.balance)}</td>
                                     <td>{selectedType?.label ?? account.account_type}</td>
                                     <td>{selectedSubtype?.label ?? account.account_subtype}</td>
