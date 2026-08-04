@@ -16,6 +16,7 @@ import PublicRoute from "./auth/PublicRoute";
 // pages
 import Index from './pages/Index';
 import Accounts from './pages/Accounts';
+import AccountHistory from './pages/AccountHistory';
 import Assets from './pages/Assets';
 import Liabilities from './pages/Liabilities';
 import UpdateNetworth from './pages/UpdateNetworth';
@@ -34,24 +35,24 @@ export default function App() {
 
   /* --- Effects --- */
   useEffect(() => {
-      async function loadSession() {
-        const {
-          data: {session},
-        } = await supabase.auth.getSession();
-
-        setUser(session?.user ?? null);
-        setLoading(false);
-      }
-
-      loadSession();
-
+    async function loadSession() {
       const {
-        data: {subscription},
-      } = supabase.auth.onAuthStateChange((_event, session) => {
-        setUser(session?.user ?? null);
-      });
+        data: { session },
+      } = await supabase.auth.getSession();
 
-      return () => subscription.unsubscribe();
+      setUser(session?.user ?? null);
+      setLoading(false);
+    }
+
+    loadSession();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   if (loading) {
@@ -67,14 +68,14 @@ export default function App() {
         <Route path="/register"
           element={
             <PublicRoute user={user}>
-              <Register/>
+              <Register />
             </PublicRoute>
           }
         />
         <Route path="/login"
           element={
             <PublicRoute user={user}>
-              <Login/>
+              <Login />
             </PublicRoute>
           }
         />
@@ -83,59 +84,66 @@ export default function App() {
         <Route path="/"
           element={
             <ProtectedRoute user={user}>
-              <Index/>
+              <Index />
             </ProtectedRoute>
           }
-          />
+        />
         <Route path="/account-form"
           element={
             <ProtectedRoute user={user}>
-              <AccountForm/>
+              <AccountForm />
             </ProtectedRoute>
           }
-          />
+        />
         <Route path="/account-form/:id/edit"
           element={
             <ProtectedRoute user={user}>
-              <AccountForm/>
+              <AccountForm />
             </ProtectedRoute>
           }
-          />
+        />
         <Route path="/accounts"
           element={
             <ProtectedRoute user={user}>
-              <Accounts/>
+              <Accounts />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="account/:accountId/history"
+          element={
+            <ProtectedRoute user={user}>
+              <AccountHistory/>
             </ProtectedRoute>
           }
           />
         <Route path="/assets"
           element={
             <ProtectedRoute user={user}>
-              <Assets/>
+              <Assets />
             </ProtectedRoute>
           }
-          />
+        />
         <Route path="/liabilities"
           element={
             <ProtectedRoute user={user}>
-              <Liabilities/>
+              <Liabilities />
             </ProtectedRoute>
           }
-          />
+        />
         <Route path="/update-networth"
           element={
             <ProtectedRoute user={user}>
-              <UpdateNetworth/>
+              <UpdateNetworth />
             </ProtectedRoute>
           }
-          />
+        />
         <Route path="/networth-history"
           element={
             <ProtectedRoute user={user}>
-              <NetworthHistory/>
+              <NetworthHistory />
             </ProtectedRoute>
           }
-          />
+        />
       </Routes>
     </>
   )

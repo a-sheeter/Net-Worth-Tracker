@@ -81,7 +81,7 @@ export default function NetworthHistory() {
                                 <td>{formatCurrency(networth.networth_total)}</td>
                                 <td>{formatCurrency(networth.asset_total)}</td>
                                 <td>{formatCurrency(networth.liability_total)}</td>
-                                <td>{timestamp.toLocaleTimeString()}</td>
+                                <td>{timestamp.toLocaleDateString()}{" "}{timestamp.toLocaleTimeString()}</td>
                                 <td><button onClick={() => getAccountHistory(networth.id)}>Expand</button></td>
                             </tr>
                         )

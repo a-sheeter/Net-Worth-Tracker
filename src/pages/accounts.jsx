@@ -6,8 +6,7 @@ import useAccounts from "../hooks/useAccounts";
 
 // components
 import NavBar from "../components/NavBar";
-import AssetTable from "../components/AssetTable";
-import LiabilityTable from "../components/LiabilityTable";
+import AccountTable from "../components/AccountTable";
 
 // Render
 export default function Accounts() {
@@ -26,8 +25,8 @@ export default function Accounts() {
     return (
         <>
             <NavBar />
-            <AssetTable/>
-            <LiabilityTable/>
+            <AccountTable type="asset"/>
+            <AccountTable type="liability"/>
         </>
     )
 }

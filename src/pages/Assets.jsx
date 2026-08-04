@@ -6,7 +6,7 @@ import useAccounts from "../hooks/useAccounts";
 
 // components
 import NavBar from "../components/NavBar";
-import AssetTable from "../components/AssetTable";
+import AccountTable from "../components/AccountTable";
 
 // Render
 export default function Accounts() {
@@ -25,7 +25,7 @@ export default function Accounts() {
     return (
         <>
             <NavBar />
-            <AssetTable/>
+            <AccountTable type="asset"/>
         </>
     )
 }
