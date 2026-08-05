@@ -105,7 +105,7 @@ export default function AccountForm() {
             }
         } else {
             const { newError } = await supabase
-                .from("account")
+                .from("accounts")
                 .insert([
                     {
                         user_id: user.id,

@@ -28,17 +28,19 @@ export default function AccountTable({ type }) {
 
             <table>
                 <thead>
-                    <th>Name</th>
-                    <th>Balance</th>
-                    <th>Account Type</th>
-                    <th>Account Subtype</th>
-                    <th>Last Updated</th>
-                    <th>Visit Account</th>
-                    <th>Actions</th>
+                    <tr>
+                        <th>Name</th>
+                        <th>Balance</th>
+                        <th>Account Type</th>
+                        <th>Account Subtype</th>
+                        <th>Last Updated</th>
+                        <th>Visit Account</th>
+                        <th>Actions</th>
+                    </tr>
                 </thead>
 
                 <tbody>
-                                        {filteredAccounts.map(account => {
+                    {filteredAccounts.map(account => {
 
                         const lastUpdated = new Date(account.last_updated);
 

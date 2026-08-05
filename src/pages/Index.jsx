@@ -90,7 +90,7 @@ export default function Index() {
         ]
         : [];
 
-    const renderPercentage = ({percent}) => {
+    const renderPercentage = ({ percent }) => {
         return `${(percent * 100).toFixed(0)}%`;
     };
 
@@ -130,8 +130,6 @@ export default function Index() {
             <p>Assets: {formatCurrency(totalBalanceByType(accounts, "liability"))}
             </p><button><Link to="/liabilities">View details</Link></button>
 
-            <button onClick={() => console.log(pieData)}>Pie data</button>
-
             <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={chartData}>
 
@@ -139,7 +137,9 @@ export default function Index() {
                         dataKey="date"
                     />
 
-                    <YAxis />
+                    <YAxis
+                        domain={['dataMin - 5000', 'dataMax + 5000']}
+                    />
 
                     <Tooltip
                         formatter={(value) =>
