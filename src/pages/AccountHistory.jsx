@@ -19,6 +19,10 @@ export default function AccountHistory() {
 
     /* --- Effects --- */
     useEffect(() => {
+        document.title = "Account History | Net Worth Tracker";
+    }, []);
+
+    useEffect(() => {
         async function getAccountData() {
 
             if (!user) return;

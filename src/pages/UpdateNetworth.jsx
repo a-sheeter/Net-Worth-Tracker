@@ -31,6 +31,10 @@ export default function UpdateNetworth() {
 
     /* --- Effects --- */
     useEffect(() => {
+        document.title = "Update Net Worth | Net Worth Tracker";
+    }, []);
+
+    useEffect(() => {
         if (!successMessage) return;
 
         const timer = setTimeout(() => {

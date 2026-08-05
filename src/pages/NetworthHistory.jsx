@@ -20,6 +20,10 @@ export default function NetworthHistory() {
 
     /* --- EFFECTS --- */
     useEffect(() => {
+        document.title = "Net Worth History | Net Worth Tracker";
+    }, []);
+
+    useEffect(() => {
         if (!user) return;
         getNetworthHistory();
     }, [user]);

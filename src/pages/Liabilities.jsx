@@ -19,7 +19,7 @@ export default function Accounts() {
 
     /* --- Effects --- */
     useEffect(() => {
-        document.title = "Accounts | Net Worth Tracker";
+        document.title = "Liabilities | Net Worth Tracker";
     }, []);
 
     return (

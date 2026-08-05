@@ -26,6 +26,7 @@ export default function Index() {
     /* --- state --- */
     const { accounts, handleDeleteAccount } = useAccounts();
     const [profile, setProfile] = useState(null);
+    const [firstName, setFirstName] = useState('');
 
     /* --- function --- */
     async function getProfile() {
@@ -43,11 +44,9 @@ export default function Index() {
         }
 
         setProfile(data);
+        setFirstName(data.name.split(" ")[0])
         console.log(data);
     }
-
-    /* --- name --- */
-    const firstName = profile.name.split(" ")[0];
 
     /* --- Render --- */
     return (
