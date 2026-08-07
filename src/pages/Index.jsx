@@ -117,9 +117,10 @@ export default function Index() {
     return (
         <>
             <NavBar />
-            <h1>NET WORTH TRACKER</h1>
-            <p>Hello, {firstName}!</p>
-            <p>Today is: {today.toLocaleDateString()}</p>
+            <div>            
+                <h1>Hello, {firstName}!</h1>
+                <p>Today is: {today.toLocaleDateString()}</p>
+            </div>
 
             <p>Net Worth: {formatCurrency(totalNetWorth(accounts))}
             </p>

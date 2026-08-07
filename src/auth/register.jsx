@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { supabase } from "../utils/supabase";
+import Button from "../components/Button";
 
 export default function Register() {
     /* --- Effects --- */
@@ -70,48 +71,52 @@ export default function Register() {
     }
 
     return (
-        <>
-            <form onSubmit={handleRegister}>
-                <label htmlFor="name">Name</label>
-                <input
-                    id="name"
-                    type="text"
-                    autoComplete="name"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-                <label htmlFor="username">Username</label>
-                <input
-                    id="username"
-                    type="text"
-                    autoComplete="username"
-                    required
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <label htmlFor="email">Email</label>
-                <input
-                    id="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <label htmlFor="password">Password</label>
-                <input
-                    id="password"
-                    type="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-
-                <button type="submit">Create Account</button>
-            </form>
-            <p>{successMessage}</p>
-            <p>{errorMessage}</p>
-        </>
+        <div className="center-all">
+            <div className="small-max-width">
+                <h4 className="text-align-center l-text">Register User</h4>
+                <h1 className="green-text text-align-center xl-text">Net Worth<br /> Tracker</h1>
+                <form onSubmit={handleRegister}>
+                    <label htmlFor="name">Name</label>
+                    <input
+                        id="name"
+                        type="text"
+                        autoComplete="name"
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <label htmlFor="username">Username</label>
+                    <input
+                        id="username"
+                        type="text"
+                        autoComplete="username"
+                        required
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <label htmlFor="email">Email</label>
+                    <input
+                        id="email"
+                        type="email"
+                        autoComplete="email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <label htmlFor="password">Password</label>
+                    <input
+                        id="password"
+                        type="password"
+                        required
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <p className="text-align-center">Already have an account? <Link to="/login">Log In</Link></p>
+                    <Button type="submit" className="green-btn">Create Account</Button>
+                </form>
+                <p>{successMessage}</p>
+                <p>{errorMessage}</p>
+            </div>
+        </div>
     )
 }

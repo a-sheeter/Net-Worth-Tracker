@@ -16,5 +16,5 @@ export function totalNetWorth(accounts) {
     const assets = totalBalanceByType(accounts, "asset");
     const liabilities = totalBalanceByType(accounts, "liability");
 
-    return assets - liabilities;
+    return assets - Math.abs(liabilities);
 }
