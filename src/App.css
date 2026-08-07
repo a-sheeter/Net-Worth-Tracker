@@ -9,12 +9,102 @@ nav {
     max-width: 75px;
 }
 
+/* --- FORMAT --- */
+.center-all {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.center-all > div {
+    width: 100%;
+}
+
+/* --- SIZING --- */
+
+.small-max-width {
+    max-width: 750px;
+}
+
+/* --- LINKS ---*/
+a {
+    color: var(--green);
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color:white;
+}
+
+/* --- BUTTONS --- */
+button {
+    cursor: pointer;
+    font-size: 15px;
+    padding: 10px 35px;
+    border: none;
+    border-radius: 5px;
+}
+
+.green-btn {
+    background: var(--green);
+    border: 2px solid var(--green);
+    transition: all 0.2s ease;
+}
+
+.green-btn:hover {
+    background: none;
+    color: var(--green);
+}
+
+/* --- TYPOGRAPHY --- */
+.green-text {
+    color: var(--green);
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+    line-height: 1.1;
+}
+
+.l-text {
+    font-size: 3rem;
+}
+
+.xl-text {
+    font-size: 7rem;
+}
+
+@media screen and (max-width: 766px) {
+    .xl-text {
+        font-size: 5rem;
+    }
+}
+
 /* --- FORMS --- */
 
 form {
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+form button {
+    align-self: center;
+}
+
+input {
+    background:none;
+    border:none;
+    border-bottom: 1px solid gray;
+    padding: 8px;
+    color:white;
 }
 
 /* --- TABLE ---*/
