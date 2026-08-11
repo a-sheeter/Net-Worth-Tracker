@@ -139,6 +139,7 @@ export default function UpdateNetworth() {
     return (
         <>
             <NavBar />
+            <div className="container-fluid">
             <h1>Update Net Worth</h1> <button type="button"><Link to="/">Back to Dashboard</Link></button>
             <form onSubmit={handleUpdateNetworth}>
                 <h2>Assets</h2>
@@ -212,6 +213,7 @@ export default function UpdateNetworth() {
                 <button type="submit">Update Net Worth</button>
             </form>
             <p>{successMessage}</p>
+            </div>
         </>
     )
 }
