@@ -27,6 +27,11 @@ nav>div {
     max-width: 75px;
 }
 
+/* --- CONTAINERS --- */
+.container-fluid {
+    padding: 45px 0;
+}
+
 /* --- FORMAT --- */
 .center-all {
     height: 75vh;
@@ -39,6 +44,11 @@ nav>div {
 
 .center-all>div {
     width: 100%;
+}
+
+.horizontal-inline {
+    display: flex;
+    gap: 25px;
 }
 
 /* --- SIZING --- */
@@ -60,7 +70,7 @@ a:hover {
 /* --- BUTTONS --- */
 button {
     cursor: pointer;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 700;
     padding: 7px 30px;
     border: none;
@@ -94,6 +104,19 @@ button {
 
 .outline-btn a:hover {
     color:black;
+}
+
+.link-btn {
+    background:none;
+    color:white;
+    padding:5px;
+    text-decoration: underline;
+    font-weight:300;
+    transition: all 0.2s ease;
+}
+
+.link-btn:hover {
+    color: var(--green);
 }
 
 /* --- TYPOGRAPHY --- */
@@ -155,15 +178,17 @@ input, select {
 /* --- TABLE ---*/
 table {
     border-collapse: collapse;
+    width: 100%;
 }
 
 thead {
     font-weight: 700;
 }
 
-td {
-    padding: 15px;
-    border: 1px solid lightgray;
+td, th {
+    text-align: start;
+    padding: 12px;
+    border-bottom: 1px solid rgb(72, 72, 72);
 }
 
 /* --- ERROR ---*/

@@ -10,6 +10,7 @@ import { accountTypes } from "../constants/accountTypes";
 //utils
 import { formatCurrency } from "../utils/formatters";
 import { totalBalanceByType } from "../utils/calculations";
+import Button from "./Button";
 
 export default function AccountTable({ type }) {
     const { accounts, handleDeleteAccount } = useAccounts();
@@ -19,8 +20,8 @@ export default function AccountTable({ type }) {
     );
 
     return (
-        <>
-            <h2>{type === "asset" ? "Assets" : "Liabilities"}</h2>
+        <div className="container-fluid">
+            <h2 className="green-text">{type === "asset" ? "Assets" : "Liabilities"}</h2>
 
             <p>
                 Total: {formatCurrency(totalBalanceByType(accounts, type))}
@@ -97,18 +98,19 @@ export default function AccountTable({ type }) {
 
                                     {" | "}
 
-                                    <button
+                                    <Button
                                         type="button"
+                                        className="link-btn"
                                         onClick={() => handleDeleteAccount(account.id)}
                                     >
                                         Delete
-                                    </button>
+                                    </Button>
                                 </td>
                             </tr>
                         )
                     })}
                 </tbody>
             </table>
-        </>
+        </div>
     )
 }
