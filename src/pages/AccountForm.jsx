@@ -14,6 +14,7 @@ import { accountTypes } from "../constants/accountTypes";
 // utils
 import { supabase } from "../utils/supabase";
 import { formatCurrency } from "../utils/formatters";
+import Button from "../components/Button";
 
 export default function AccountForm() {
 
@@ -130,64 +131,75 @@ export default function AccountForm() {
     return (
         <>
             <NavBar />
-            <h1>{isEditing ? "Edit Account" : "Add Account"}</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Name</label>
-                <input
-                    id="name"
-                    type="text"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-                <label htmlFor="account-type">Account Type</label>
-                <select id="account-type" name="account-type" value={typeId} onChange={(e) => {
-                    setTypeId(e.target.value); setSubtypeId("");
-                }}>
-                    <option value="">Choose Account Type</option>
-                    {accountTypes.map(type => (
-                        <option
-                            key={type.id}
-                            value={type.id}
-                        >
-                            {type.label}
-                        </option>
-                    ))
-                    }
-                </select>
-
-                <label htmlFor="account-subtype">Account Sub-Type</label>
-                <select id="account-subtype" value={subtypeId} name="account-subtype" onChange={(e) => setSubtypeId(e.target.value)}>
-                    <option value="">Choose Account Subtype</option>
-                    {selectedType?.subtypes.map(subtype => (
-                        <option
-                            key={subtype.id}
-                            value={subtype.id}
-                        >
-                            {subtype.label}
-                        </option>
-                    ))}
-                </select>
-
-                <label htmlFor="url">Url to login</label>
-                <input
-                    id="url"
-                    type="text"
-                    required
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                />
-
-                <label htmlFor="balance">Balance</label>
-                {isEditing ? <span>{formatCurrency(balance)}</span> : <input
-                    id="balance"
-                    type="number"
-                    required
-                    value={balance}
-                    onChange={(e) => setBalance(e.target.value)}
-                />}
-                <button type="submit">{isEditing ? "Save Changes" : "Add Account"}</button>
-            </form>
+            <div className="center-all">
+                <div className="small-max-width">
+                <h1 className="text-align-center">{isEditing ? "Edit Account" : "Add Account"}</h1>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                    <label htmlFor="name">Name</label>
+                    <input
+                        id="name"
+                        type="text"
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    </div>
+                    <div>
+                    <label htmlFor="account-type">Account Type</label>
+                    <select id="account-type" name="account-type" value={typeId} onChange={(e) => {
+                        setTypeId(e.target.value); setSubtypeId("");
+                    }}>
+                        <option value=""></option>
+                        {accountTypes.map(type => (
+                            <option
+                                key={type.id}
+                                value={type.id}
+                            >
+                                {type.label}
+                            </option>
+                        ))
+                        }
+                    </select>
+                    </div>
+                    <div>
+                    <label htmlFor="account-subtype">Account Sub-Type</label>
+                    <select id="account-subtype" value={subtypeId} name="account-subtype" onChange={(e) => setSubtypeId(e.target.value)}>
+                        <option value=""></option>
+                        {selectedType?.subtypes.map(subtype => (
+                            <option
+                                key={subtype.id}
+                                value={subtype.id}
+                            >
+                                {subtype.label}
+                            </option>
+                        ))}
+                    </select>
+                    </div>
+                    <div>
+                    <label htmlFor="url">Url to login</label>
+                    <input
+                        id="url"
+                        type="text"
+                        required
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)}
+                    />
+                    </div>
+                    <div>
+                    <label htmlFor="balance">Balance</label>
+                    {isEditing ? <span>{formatCurrency(balance)}</span> : <input
+                        id="balance"
+                        type="number"
+                        required
+                        value={balance}
+                        onChange={(e) => setBalance(e.target.value)}
+                    />}
+                    </div>
+                    <Button type="submit" className="green-btn">{isEditing ? "Save Changes" : "Add Account"}</Button>
+                </form>
+            </div>
+        </div >
         </>
     )
 }

@@ -46,24 +46,28 @@ export default function Login() {
                 <h4 className="text-align-center l-text">Welcome to the</h4>
                 <h1 className="green-text text-align-center xl-text">Net Worth<br /> Tracker</h1>
                 <form onSubmit={handleLogin}>
-                    <label htmlFor="email">Email</label>
-                    <input
-                        id="email"
-                        type="email"
-                        required
-                        autoComplete={email}
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <label htmlFor="password">Password</label>
-                    <input
-                        id="password"
-                        type="password"
-                        required
-                        autoComplete={password}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <div>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            id="email"
+                            type="email"
+                            required
+                            autoComplete={email}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="password">Password</label>
+                        <input
+                            id="password"
+                            type="password"
+                            required
+                            autoComplete={password}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
                     <p className="text-align-center">Don't have an account? <Link to="/register">Register Now</Link></p>
                     <Button type="submit" className="green-btn">Log In</Button>
                 </form>

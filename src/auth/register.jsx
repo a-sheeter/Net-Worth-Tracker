@@ -76,41 +76,49 @@ export default function Register() {
                 <h4 className="text-align-center l-text">Register User</h4>
                 <h1 className="green-text text-align-center xl-text">Net Worth<br /> Tracker</h1>
                 <form onSubmit={handleRegister}>
-                    <label htmlFor="name">Name</label>
-                    <input
-                        id="name"
-                        type="text"
-                        autoComplete="name"
-                        required
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                    <label htmlFor="username">Username</label>
-                    <input
-                        id="username"
-                        type="text"
-                        autoComplete="username"
-                        required
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <label htmlFor="email">Email</label>
-                    <input
-                        id="email"
-                        type="email"
-                        autoComplete="email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <label htmlFor="password">Password</label>
-                    <input
-                        id="password"
-                        type="password"
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <div>
+                        <label htmlFor="name">Name</label>
+                        <input
+                            id="name"
+                            type="text"
+                            autoComplete="name"
+                            required
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="username">Username</label>
+                        <input
+                            id="username"
+                            type="text"
+                            autoComplete="username"
+                            required
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            id="email"
+                            type="email"
+                            autoComplete="email"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="password">Password</label>
+                        <input
+                            id="password"
+                            type="password"
+                            required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
                     <p className="text-align-center">Already have an account? <Link to="/login">Log In</Link></p>
                     <Button type="submit" className="green-btn">Create Account</Button>
                 </form>

@@ -29,7 +29,7 @@ nav>div {
 
 /* --- FORMAT --- */
 .center-all {
-    height: 100vh;
+    height: 75vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,7 +44,7 @@ nav>div {
 /* --- SIZING --- */
 
 .small-max-width {
-    max-width: 750px;
+    max-width: 550px;
 }
 
 /* --- LINKS ---*/
@@ -61,6 +61,7 @@ a:hover {
 button {
     cursor: pointer;
     font-size: 15px;
+    font-weight: 700;
     padding: 7px 30px;
     border: none;
     border-radius: 5px;
@@ -131,14 +132,19 @@ h4 {
 form {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 25px;
 }
 
 form button {
     align-self: center;
 }
 
-input {
+form > div {
+    display: flex;
+    flex-direction: column;
+}
+
+input, select {
     background: none;
     border: none;
     border-bottom: 1px solid gray;
