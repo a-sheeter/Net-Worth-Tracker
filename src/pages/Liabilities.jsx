@@ -7,6 +7,7 @@ import useAccounts from "../hooks/useAccounts";
 // components
 import NavBar from "../components/NavBar";
 import AccountTable from "../components/AccountTable";
+import Button from "../components/Button";
 
 // Render
 export default function Accounts() {
@@ -25,7 +26,10 @@ export default function Accounts() {
     return (
         <>
             <NavBar />
-            <AccountTable type="liability"/>
+            <div className="container-fluid">
+                <div className="horizontal-inline"><h1>Your Accounts</h1><Button type="button" className="green-btn">Add New Account</Button></div>
+                <AccountTable type="liability" />
+            </div>
         </>
     )
 }
