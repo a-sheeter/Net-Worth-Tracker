@@ -75,6 +75,32 @@ export default function Index() {
     }));
 
     const latestSnapshot = snapshots[snapshots.length - 1];
+    const monthlyAverages = snapshots.reduce((acc, snapshot) => {
+        const month = new Date(snapshot.created_at).toISOString().slice(0, 7);
+
+        if (!acc[month]) {
+            acc[month] = [];
+        }
+
+        acc[month].push(Number(snapshot.networth_total));
+
+        return acc;
+    }, {});
+
+    const monthlyAverageData = Object.entries(monthlyAverages).map(
+        ([month, values]) => ({
+            month,
+            average: values.reduce((sum, value) => sum + value, 0) / values.length
+        })
+    );
+
+    const latestMonth = monthlyAverageData[monthlyAverageData.length - 1];
+    const previousMonth = monthlyAverageData[monthlyAverageData.length - 2];
+
+    const monthlyPercentageChange =
+        latestMonth && previousMonth
+            ? ((latestMonth.average - previousMonth.average) / previousMonth.average) * 100
+            : null;
 
     const pieData = latestSnapshot
         ? [
@@ -134,6 +160,12 @@ export default function Index() {
                             </div>
                             <h1 className="l-text strong-text">{formatCurrency(totalNetWorth(accounts))}</h1>
 
+                            {monthlyPercentageChange !== null && (
+                                <div className="horizontal-inline-small">
+                                    <span className="green-text horizontal-inline-small">{monthlyPercentageChange >= 0 ? (<svg width="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="rgb(177, 255, 80)" d="M416 224C398.3 224 384 209.7 384 192C384 174.3 398.3 160 416 160L576 160C593.7 160 608 174.3 608 192L608 352C608 369.7 593.7 384 576 384C558.3 384 544 369.7 544 352L544 269.3L374.6 438.7C362.1 451.2 341.8 451.2 329.3 438.7L224 333.3L86.6 470.6C74.1 483.1 53.8 483.1 41.3 470.6C28.8 458.1 28.8 437.8 41.3 425.3L201.3 265.3C213.8 252.8 234.1 252.8 246.6 265.3L352 370.7L498.7 224L416 224z"/></svg>) : (<svg width="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="rgb(177, 255, 80)" d="M416 416C398.3 416 384 430.3 384 448C384 465.7 398.3 480 416 480L576 480C593.7 480 608 465.7 608 448L608 288C608 270.3 593.7 256 576 256C558.3 256 544 270.3 544 288L544 370.7L374.6 201.3C362.1 188.8 341.8 188.8 329.3 201.3L224 306.7L86.6 169.4C74.1 156.9 53.8 156.9 41.3 169.4C28.8 181.9 28.8 202.2 41.3 214.7L201.3 374.7C213.8 387.2 234.1 387.2 246.6 374.7L352 269.3L498.7 416L416 416z"/></svg>)}
+                                    {" "}{Math.abs(monthlyPercentageChange.toFixed(1))}%</span> vs. last month
+                                </div>
+                            )}
                         </div>
 
                         <div className="gray-bg border-radius-5 widget">
@@ -154,7 +186,7 @@ export default function Index() {
                             <div className="horizontal-inline title">
                                 <div className="green-icon"><svg width="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="rgb(0, 0, 0)" d="M296 88C296 74.7 306.7 64 320 64C333.3 64 344 74.7 344 88L344 128L400 128C417.7 128 432 142.3 432 160C432 177.7 417.7 192 400 192L285.1 192C260.2 192 240 212.2 240 237.1C240 259.6 256.5 278.6 278.7 281.8L370.3 294.9C424.1 302.6 464 348.6 464 402.9C464 463.2 415.1 512 354.9 512L344 512L344 552C344 565.3 333.3 576 320 576C306.7 576 296 565.3 296 552L296 512L224 512C206.3 512 192 497.7 192 480C192 462.3 206.3 448 224 448L354.9 448C379.8 448 400 427.8 400 402.9C400 380.4 383.5 361.4 361.3 358.2L269.7 345.1C215.9 337.5 176 291.4 176 237.1C176 176.9 224.9 128 285.1 128L296 128L296 88z" /></svg></div><h2>Net Worth Over Time</h2>
                             </div>
-                            <div className="white-bg">
+                            <div className="white-bg border-radius-5">
                                 <ResponsiveContainer width="100%" height={300}>
                                     <LineChart data={chartData}>
 
@@ -164,6 +196,7 @@ export default function Index() {
 
                                         <YAxis
                                             domain={['dataMin - 5000', 'dataMax + 5000']}
+                                            tickFormatter={(value) => `$${(value / 1000).toFixed(0)}K`}
                                         />
 
                                         <Tooltip
@@ -191,7 +224,7 @@ export default function Index() {
                                 <h2>Assets vs. Liabilities</h2>
                             </div>
 
-                            <div className="white-bg">
+                            <div className="white-bg border-radius-5">
                                 <PieChart width={300} height={300}>
 
                                     <Pie

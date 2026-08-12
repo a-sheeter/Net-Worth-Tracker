@@ -21,6 +21,7 @@ import Assets from './pages/Assets';
 import Liabilities from './pages/Liabilities';
 import UpdateNetworth from './pages/UpdateNetworth';
 import NetworthHistory from './pages/NetworthHistory';
+import Profile from './pages/Profile';
 
 // forms
 import AccountForm from './pages/AccountForm';
@@ -141,6 +142,13 @@ export default function App() {
           element={
             <ProtectedRoute user={user}>
               <NetworthHistory />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/profile"
+          element={
+            <ProtectedRoute user={user}>
+              <Profile />
             </ProtectedRoute>
           }
         />
