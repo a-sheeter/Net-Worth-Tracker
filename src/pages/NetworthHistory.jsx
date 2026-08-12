@@ -10,6 +10,7 @@ import NavBar from "../components/NavBar";
 
 // hooks
 import useUser from "../hooks/useUser";
+import Button from "../components/Button";
 
 export default function NetworthHistory() {
     const { user } = useUser();
@@ -73,64 +74,68 @@ export default function NetworthHistory() {
     return (
         <>
             <NavBar />
-            <table>
-                <thead>
-                    <tr>
-                        <td>Net Worth</td>
-                        <td>Assets</td>
-                        <td>Liabilities</td>
-                        <td>Timestamp</td>
-                        <td>Details</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {networthHistory.map(networth => {
-                        const timestamp = new Date(networth.created_at);
-                        const isExpanded = expandedSnapshot === networth.id;
+            <div className="container-fluid">
+                <h1>Net Worth History</h1>
+                <div className="container-fluid">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Net Worth</td>
+                                <td>Assets</td>
+                                <td>Liabilities</td>
+                                <td>Timestamp</td>
+                                <td>Details</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {networthHistory.map(networth => {
+                                const timestamp = new Date(networth.created_at);
+                                const isExpanded = expandedSnapshot === networth.id;
 
-                        return (
-                            <>
-                                <tr key={networth.id}>
-                                    <td>{formatCurrency(networth.networth_total)}</td>
-                                    <td>{formatCurrency(networth.asset_total)}</td>
-                                    <td>{formatCurrency(networth.liability_total)}</td>
-                                    <td>{timestamp.toLocaleDateString()}{" "}{timestamp.toLocaleTimeString()}</td>
-                                    <td><button onClick={() => getAccountHistory(networth.id)}>{isExpanded ? "Collapse" : "Expand"}</button></td>
-                                </tr>
+                                return (
+                                    <>
+                                        <tr key={networth.id}>
+                                            <td>{formatCurrency(networth.networth_total)}</td>
+                                            <td>{formatCurrency(networth.asset_total)}</td>
+                                            <td>{formatCurrency(networth.liability_total)}</td>
+                                            <td>{timestamp.toLocaleDateString()}{" "}{timestamp.toLocaleTimeString()}</td>
+                                            <td><Button type="button" className="accordion-btn" onClick={() => getAccountHistory(networth.id)}>{isExpanded ? "Collapse" : "Expand"}</Button></td>
+                                        </tr>
 
-                                {isExpanded && (
-                                    <tr>
-                                        <td colSpan="5">
-                                            <table>
-                                                <thead>
-                                                    <tr>
-                                                        <th>Account</th>
-                                                        <th>Type</th>
-                                                        <th>Balance</th>
-                                                    </tr>
-                                                </thead>
+                                        {isExpanded && (
+                                            <tr>
+                                                <td colSpan="5">
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                <th className="green-text">Account</th>
+                                                                <th className="green-text">Type</th>
+                                                                <th className="green-text">Balance</th>
+                                                            </tr>
+                                                        </thead>
 
-                                                <tbody>
-                                                    {accountHistory.map(account => (
-                                                        <tr key={account.id}>
-                                                            <td>{account.account_name}</td>
-                                                            <td>{account.balance_type}</td>
-                                                            <td>
-                                                                {formatCurrency(account.balance)}
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                )}
-                            </>
-                        )
-                    })}
-                </tbody>
-            </table>
-
+                                                        <tbody>
+                                                            {accountHistory.map(account => (
+                                                                <tr key={account.id}>
+                                                                    <td>{account.account_name}</td>
+                                                                    <td>{account.balance_type}</td>
+                                                                    <td>
+                                                                        {formatCurrency(account.balance)}
+                                                                    </td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </>
     )
 

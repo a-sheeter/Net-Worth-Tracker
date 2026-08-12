@@ -27,12 +27,36 @@ nav>div {
     max-width: 75px;
 }
 
+/* --- iCONS --- */
+.green-icon {
+    background:var(--green);
+    width:35px;
+    height:35px;
+    display: flex;
+    justify-content: center;
+    border-radius: 999px;
+}
+
 /* --- CONTAINERS --- */
 .container-fluid {
     padding: 45px 0;
 }
 
 /* --- FORMAT --- */
+
+.grid {
+    display:grid;
+    gap:15px;
+}
+
+.grid-3 {
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.grid-2 {
+    grid-template-columns: 2fr 1fr;
+}
+
 .center-all {
     height: 75vh;
     display: flex;
@@ -48,13 +72,34 @@ nav>div {
 
 .horizontal-inline {
     display: flex;
+    align-items: center;
     gap: 25px;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.border-radius-5 {
+    border-radius:5px;
 }
 
 /* --- SIZING --- */
 
 .small-max-width {
     max-width: 550px;
+}
+
+/* --- COLORS --- */
+.white-bg {
+    background:white;
+    padding:25px;
+}
+
+.gray-bg {
+    background: var(--gray);
+    padding:25px;
 }
 
 /* --- LINKS ---*/
@@ -72,7 +117,7 @@ button {
     cursor: pointer;
     font-size: 17px;
     font-weight: 700;
-    padding: 7px 30px;
+    padding: 7px 25px;
     border: none;
     border-radius: 5px;
 }
@@ -81,6 +126,16 @@ button {
     background: var(--green);
     border: 2px solid var(--green);
     transition: all 0.2s ease;
+}
+
+.green-btn a {
+    color: black;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.green-btn:hover a {
+    color: var(--green);
 }
 
 .green-btn:hover {
@@ -102,21 +157,33 @@ button {
     background: var(--green);
 }
 
-.outline-btn a:hover {
-    color:black;
+.outline-btn:hover a {
+    color: black;
 }
 
 .link-btn {
-    background:none;
-    color:white;
-    padding:5px;
+    background: none;
+    color: white;
+    padding: 5px;
     text-decoration: underline;
-    font-weight:300;
+    font-weight: 300;
     transition: all 0.2s ease;
 }
 
 .link-btn:hover {
     color: var(--green);
+}
+
+.accordion-btn {
+    background:none;
+    color: var(--green);
+    padding:0;
+    margin:0;
+    transition: color 0.2s ease;
+}
+
+.accordion-btn:hover {
+    color:white;
 }
 
 /* --- TYPOGRAPHY --- */
@@ -150,6 +217,10 @@ h4 {
     }
 }
 
+.strong-text {
+    font-weight:600;
+}
+
 /* --- FORMS --- */
 
 form {
@@ -162,17 +233,23 @@ form button {
     align-self: center;
 }
 
-form > div {
+form>div {
     display: flex;
     flex-direction: column;
 }
 
-input, select {
+input,
+select {
     background: none;
     border: none;
     border-bottom: 1px solid gray;
     padding: 8px;
     color: white;
+}
+
+.green-input input {
+    border: 1px solid var(--green);
+    border-radius: 5px;
 }
 
 /* --- TABLE ---*/
@@ -185,9 +262,10 @@ thead {
     font-weight: 700;
 }
 
-td, th {
+td,
+th {
     text-align: start;
-    padding: 12px;
+    padding: 15px 0;
     border-bottom: 1px solid rgb(72, 72, 72);
 }
 

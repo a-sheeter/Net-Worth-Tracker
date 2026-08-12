@@ -7,6 +7,7 @@ import useAccounts from "../hooks/useAccounts";
 
 // components
 import NavBar from "../components/NavBar";
+import Button from "../components/Button";
 
 // data
 import { accountTypes } from "../constants/accountTypes";
@@ -140,79 +141,81 @@ export default function UpdateNetworth() {
         <>
             <NavBar />
             <div className="container-fluid">
-            <h1>Update Net Worth</h1> <button type="button"><Link to="/">Back to Dashboard</Link></button>
-            <form onSubmit={handleUpdateNetworth}>
-                <h2>Assets</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Name</td>
-                            <td>Balance</td>
-                            <td>Last Updated</td>
-                            <td>New Balance</td>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div className="horizontal-inline"><h1>Update Net Worth</h1><Button type="button" className="green-btn"><Link to="/">Back to Dashboard</Link></Button></div>
+                <div className="container-fluid">
+                    <form onSubmit={handleUpdateNetworth}>
+                        <h2 className="green-text">Assets</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Balance</td>
+                                    <td>Last Updated</td>
+                                    <td>New Balance</td>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                        {accounts.map(account => {
-                            const lastUpdated = new Date(account.last_updated);
+                                {accounts.map(account => {
+                                    const lastUpdated = new Date(account.last_updated);
 
-                            if (account.balance_type === "asset") {
-                                return (
-                                    <tr key={account.id}>
-                                        <td>{account.name}</td>
-                                        <td>{formatCurrency(account.balance)}</td>
-                                        <td>{lastUpdated.toLocaleDateString()}{" "} {lastUpdated.toLocaleTimeString()}</td>
-                                        <td><input
-                                            type="number"
-                                            value={updatedBalances[account.id] ?? account.balance}
+                                    if (account.balance_type === "asset") {
+                                        return (
+                                            <tr key={account.id}>
+                                                <td>{account.name}</td>
+                                                <td>{formatCurrency(account.balance)}</td>
+                                                <td>{lastUpdated.toLocaleDateString()}{" "} {lastUpdated.toLocaleTimeString()}</td>
+                                                <td className="green-input"><input
+                                                    type="number"
+                                                    value={updatedBalances[account.id] ?? account.balance}
 
-                                            onChange={(e) => handleBalanceChange(account.id, e.target.value)}
-                                        /></td>
-                                    </tr>
-                                )
-                            }
-                        })}
-                    </tbody>
-                </table>
+                                                    onChange={(e) => handleBalanceChange(account.id, e.target.value)}
+                                                /></td>
+                                            </tr>
+                                        )
+                                    }
+                                })}
+                            </tbody>
+                        </table>
 
-                <h2>Liabilities</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Name</td>
-                            <td>Balance</td>
-                            <td>Last Updated</td>
-                            <td>New Balance</td>
-                        </tr>
-                    </thead>
-                    <tbody>
+                        <h2 className="green-text">Liabilities</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Balance</td>
+                                    <td>Last Updated</td>
+                                    <td>New Balance</td>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                        {accounts.map(account => {
-                            const lastUpdated = new Date(account.last_updated);
+                                {accounts.map(account => {
+                                    const lastUpdated = new Date(account.last_updated);
 
-                            if (account.balance_type === "liability") {
-                                return (
-                                    <tr key={account.id}>
-                                        <td>{account.name}</td>
-                                        <td>{formatCurrency(account.balance)}</td>
-                                        <td>{lastUpdated.toLocaleDateString()}{" "} {lastUpdated.toLocaleTimeString()}</td>
-                                        <td><input
-                                            type="number"
-                                            value={updatedBalances[account.id] ?? account.balance}
+                                    if (account.balance_type === "liability") {
+                                        return (
+                                            <tr key={account.id}>
+                                                <td>{account.name}</td>
+                                                <td>{formatCurrency(account.balance)}</td>
+                                                <td>{lastUpdated.toLocaleDateString()}{" "} {lastUpdated.toLocaleTimeString()}</td>
+                                                <td className="green-input"><input
+                                                    type="number"
+                                                    value={updatedBalances[account.id] ?? account.balance}
 
-                                            onChange={(e) => handleBalanceChange(account.id, e.target.value)}
-                                        /></td>
-                                    </tr>
-                                )
-                            }
-                        })}
-                    </tbody>
-                </table>
+                                                    onChange={(e) => handleBalanceChange(account.id, e.target.value)}
+                                                /></td>
+                                            </tr>
+                                        )
+                                    }
+                                })}
+                            </tbody>
+                        </table>
 
-                <button type="submit">Update Net Worth</button>
-            </form>
-            <p>{successMessage}</p>
+                        <Button type="submit" className="green-btn">Update All Changes</Button>
+                    </form>
+                    <p>{successMessage}</p>
+                </div>
             </div>
         </>
     )

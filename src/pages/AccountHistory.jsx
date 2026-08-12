@@ -6,6 +6,7 @@ import useUser from "../hooks/useUser";
 import { formatCurrency } from "../utils/formatters";
 
 import NavBar from "../components/NavBar";
+import Button from "../components/Button";
 
 
 export default function AccountHistory() {
@@ -66,41 +67,43 @@ export default function AccountHistory() {
     /* --- Render --- */
     return (
         <>
-        <NavBar/>
+            <NavBar />
+            <div className="container-fluid">
+                <div className="horizontal-inline"><h1>{account?.name ?? "Account History"}</h1><Button type="button" className="green-btn"><Link to="/accounts">Back to Accounts</Link></Button></div>
 
-            <h1>{account?.name ?? "Account History"}</h1>
-            <Link to="/accounts">Back to Accounts</Link>
+                <div className="container-fluid">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Balance</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Balance</th>
-                        <th>Timestamp</th>
-                    </tr>
-                </thead>
+                        <tbody>
+                            {snapshots.map(snapshot => {
+                                const timestamp = new Date(snapshot.created_at);
+                                return (
+                                    <tr key={snapshot.id}>
+                                        <td>
+                                            {snapshot.account_name}
+                                        </td>
 
-                <tbody>
-                    {snapshots.map(snapshot => {
-                        const timestamp = new Date(snapshot.created_at);
-                        return (
-                        <tr key={snapshot.id}>
-                            <td>
-                                {snapshot.account_name}
-                            </td>
+                                        <td>
+                                            {formatCurrency(snapshot.balance)}
+                                        </td>
 
-                            <td>
-                                {formatCurrency(snapshot.balance)}
-                            </td>
-
-                            <td>
-                                {timestamp.toLocaleDateString()}{" "}{timestamp.toLocaleTimeString()}
-                            </td>
-                        </tr>
-                    )
-})}
-                </tbody>
-            </table>
+                                        <td>
+                                            {timestamp.toLocaleDateString()}{" "}{timestamp.toLocaleTimeString()}
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </>
     )
 }
