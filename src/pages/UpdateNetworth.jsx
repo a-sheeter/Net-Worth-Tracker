@@ -1,6 +1,6 @@
 // react
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 // hooks
 import useAccounts from "../hooks/useAccounts";
@@ -8,9 +8,6 @@ import useAccounts from "../hooks/useAccounts";
 // components
 import NavBar from "../components/NavBar";
 import Button from "../components/Button";
-
-// data
-import { accountTypes } from "../constants/accountTypes";
 
 //utils
 import { formatCurrency } from "../utils/formatters";
@@ -26,7 +23,8 @@ export default function UpdateNetworth() {
         getAccounts
     } = useAccounts();
 
-    const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate();
+
 
     const [updatedBalances, setUpdatedBalances] = useState({});
 
@@ -34,16 +32,6 @@ export default function UpdateNetworth() {
     useEffect(() => {
         document.title = "Update Net Worth | Net Worth Tracker";
     }, []);
-
-    useEffect(() => {
-        if (!successMessage) return;
-
-        const timer = setTimeout(() => {
-            setSuccessMessage('');
-        }, 3000);
-
-        return () => clearTimeout(timer);
-    }), [successMessage];
 
     /* --- Handlers --- */
     function handleBalanceChange(accountId, value) {
@@ -79,7 +67,7 @@ export default function UpdateNetworth() {
             .insert({
                 asset_total: assetTotal,
                 liability_total: liabilityTotal,
-                networth_total: assetTotal - liabilityTotal
+                networth_total: assetTotal - Math.abs(liabilityTotal)
             })
             .select()
             .single();
@@ -109,8 +97,6 @@ export default function UpdateNetworth() {
     async function handleUpdateNetworth(e) {
         e.preventDefault();
 
-        setSuccessMessage('');
-
         try {
             //Build final account balances
             const snapshotAccounts = accounts.map(account => ({
@@ -131,7 +117,8 @@ export default function UpdateNetworth() {
             await getAccounts();
 
             setUpdatedBalances({});
-            setSuccessMessage("Your net worth was successfully updated!");
+
+            navigate("/");
         } catch (error) {
             console.log(error);
         }
@@ -214,7 +201,6 @@ export default function UpdateNetworth() {
 
                         <Button type="submit" className="green-btn">Update All Changes</Button>
                     </form>
-                    <p>{successMessage}</p>
                 </div>
             </div>
         </>

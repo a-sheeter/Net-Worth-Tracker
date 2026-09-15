@@ -24,7 +24,7 @@ import {
     ResponsiveContainer,
     PieChart,
     Pie,
-    Cell
+    Sector
 } from "recharts";
 import Button from "../components/Button";
 
@@ -56,7 +56,7 @@ export default function Index() {
 
 
     /* --- hooks --- */
-    const { accounts, handleDeleteAccount } = useAccounts();
+    const { accounts } = useAccounts();
 
     /* --- state --- */
     const [profile, setProfile] = useState(null);
@@ -73,6 +73,17 @@ export default function Index() {
             }),
         netWorth: snapshot.networth_total
     }));
+
+    const renderPieShape = (props) => {
+        const {index, ...sectorProps} = props;
+
+        return (
+            <Sector
+                {...sectorProps}
+                fill={pieData[index]?.color}
+            />
+        );
+    };
 
     const latestSnapshot = snapshots[snapshots.length - 1];
     const monthlyAverages = snapshots.reduce((acc, snapshot) => {
@@ -188,7 +199,7 @@ export default function Index() {
                             </div>
                             <div className="white-bg border-radius-5">
                                 <ResponsiveContainer width="100%" height={300}>
-                                    <LineChart data={chartData}>
+                                    <LineChart data={chartData.slice(-6)}>
 
                                         <XAxis
                                             dataKey="date"
@@ -234,15 +245,8 @@ export default function Index() {
                                         outerRadius={100}
                                         label={renderPercentage}
                                         labelLine={false}
+                                        shape={renderPieShape}
                                     >
-
-                                        {pieData.map((entry, index) => (
-                                            <Cell
-                                                key={entry.name}
-                                                fill={entry.color}
-                                            />
-                                        ))}
-
                                     </Pie>
 
                                     <Tooltip
