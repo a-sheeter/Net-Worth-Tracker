@@ -1,5 +1,7 @@
 import icon from "../assets/NW_logo.png";
 
+import "../styles/popup.css";
+
 export default function PopupContainer({ title, children, isClosed, handleClosePopup }) {
 
     return (

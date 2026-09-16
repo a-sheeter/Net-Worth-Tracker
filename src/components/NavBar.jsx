@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { supabase } from "../utils/supabase";
 import Button from "./Button";
 
-import "../styles/NavBar.css"
+import "../styles/navBar.css"
 
 export default function NavBar() {
     const navigate = useNavigate();

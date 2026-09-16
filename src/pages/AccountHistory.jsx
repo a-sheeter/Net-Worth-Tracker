@@ -86,15 +86,15 @@ export default function AccountHistory() {
                                 const timestamp = new Date(snapshot.created_at);
                                 return (
                                     <tr key={snapshot.id}>
-                                        <td>
+                                        <td data-label="Name">
                                             {snapshot.account_name}
                                         </td>
 
-                                        <td>
+                                        <td data-label="Balance">
                                             {formatCurrency(snapshot.balance)}
                                         </td>
 
-                                        <td>
+                                        <td data-label="Timesatmp">
                                             {timestamp.toLocaleDateString()}{" "}{timestamp.toLocaleTimeString()}
                                         </td>
                                     </tr>

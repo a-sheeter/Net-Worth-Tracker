@@ -1,0 +1,41 @@
+/* --- POPUP --- */
+.popup-background {
+    background:rgba(0,0, 0, 0.7);
+    position: fixed;
+    inset:0;
+    padding:25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    z-index: 9999;
+}
+
+.popup-container {
+    position:relative;
+    background:white;
+    color:black;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+    border-top: 15px solid var(--green);
+    border-radius: 5px;
+}
+
+.popup-container input {
+    color:black;
+}
+
+.popup-header {
+    text-align: center;
+    border-bottom: 1px solid lightgray;
+    padding: 25px 45px;
+}
+
+.popup-body {
+    padding: 45px;
+}
+
+.popup-background.close {
+    display:none;
+}

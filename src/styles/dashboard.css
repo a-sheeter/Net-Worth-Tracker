@@ -1,0 +1,27 @@
+/* --- HOME PAGE WIDGETS --- */
+
+.chart-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:white;
+    padding:25px;
+    border-radius: 5px;
+}
+.widget {
+    min-height: 150px;
+    border-radius: 5px;
+    background: var(--gray);
+    padding:25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media screen and (max-width:768px) {
+    .widget {
+        background:none;
+        border-radius: 0;
+        border-top: 2px solid var(--green);
+    }
+}

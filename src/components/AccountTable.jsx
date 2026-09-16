@@ -56,30 +56,30 @@ export default function AccountTable({ type }) {
 
                         return (
                             <tr key={account.id}>
-                                <td>
+                                <td data-label="Name">
                                     <Link to={`/account/${account.id}/history`}>
                                         {account.name}
                                     </Link>
                                 </td>
 
-                                <td>
+                                <td data-label="Balance">
                                     {formatCurrency(account.balance)}
                                 </td>
 
-                                <td>
+                                <td data-label="Account Type">
                                     {selectedType?.label ?? account.account_type}
                                 </td>
 
-                                <td>
+                                <td data-label="Account Subtype">
                                     {selectedSubtype?.label ?? account.account_subtype}
                                 </td>
 
-                                <td>
+                                <td data-label="Last Updated">
                                     {lastUpdated.toLocaleDateString()}{" "}
                                     {lastUpdated.toLocaleTimeString()}
                                 </td>
 
-                                <td>
+                                <td data-label="Visit Account">
                                     {account.url && (
                                         <Link
                                             target="_blank"
@@ -91,7 +91,8 @@ export default function AccountTable({ type }) {
                                     )}
                                 </td>
 
-                                <td>
+                                <td data-label="Actions">
+                                    <div>
                                     <Link to={`/account-form/${account.id}/edit`}>
                                         Edit
                                     </Link>
@@ -105,6 +106,7 @@ export default function AccountTable({ type }) {
                                     >
                                         Delete
                                     </Button>
+                                    </div>
                                 </td>
                             </tr>
                         )

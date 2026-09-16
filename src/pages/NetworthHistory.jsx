@@ -1,5 +1,5 @@
 // react
-import { useState, useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 
 // utils
 import { supabase } from "../utils/supabase";
@@ -80,11 +80,11 @@ export default function NetworthHistory() {
                     <table>
                         <thead>
                             <tr>
-                                <td>Net Worth</td>
-                                <td>Assets</td>
-                                <td>Liabilities</td>
-                                <td>Timestamp</td>
-                                <td>Details</td>
+                                <th>Net Worth</th>
+                                <th>Assets</th>
+                                <th>Liabilities</th>
+                                <th>Timestamp</th>
+                                <th>Details</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,13 +93,13 @@ export default function NetworthHistory() {
                                 const isExpanded = expandedSnapshot === networth.id;
 
                                 return (
-                                    <>
-                                        <tr key={networth.id}>
-                                            <td className="green-text">{formatCurrency(networth.networth_total)}</td>
-                                            <td>{formatCurrency(networth.asset_total)}</td>
-                                            <td>{formatCurrency(networth.liability_total)}</td>
-                                            <td>{timestamp.toLocaleDateString()}{" "}{timestamp.toLocaleTimeString()}</td>
-                                            <td><Button type="button" className="accordion-btn" onClick={() => getAccountHistory(networth.id)}>{isExpanded ? "Collapse" : "Expand"}</Button></td>
+                                    <Fragment key={networth.id}>
+                                        <tr>
+                                            <td className="green-text" data-label="Net Worth">{formatCurrency(networth.networth_total)}</td>
+                                            <td data-label="Assets">{formatCurrency(networth.asset_total)}</td>
+                                            <td data-label="Liabilities">{formatCurrency(networth.liability_total)}</td>
+                                            <td data-label="Timestamp">{timestamp.toLocaleDateString()}{" "}{timestamp.toLocaleTimeString()}</td>
+                                            <td data-label="Details"><Button type="button" className="accordion-btn" onClick={() => getAccountHistory(networth.id)}>{isExpanded ? "Collapse" : "Expand"}</Button></td>
                                         </tr>
 
                                         {isExpanded && (
@@ -116,10 +116,10 @@ export default function NetworthHistory() {
 
                                                         <tbody>
                                                             {accountHistory.map(account => (
-                                                                <tr key={account.id}>
-                                                                    <td>{account.account_name}</td>
-                                                                    <td>{account.balance_type}</td>
-                                                                    <td>
+                                                                <tr>
+                                                                    <td data-label="Account">{account.account_name}</td>
+                                                                    <td data-label="Type">{account.balance_type}</td>
+                                                                    <td data-label="Balance">
                                                                         {formatCurrency(account.balance)}
                                                                     </td>
                                                                 </tr>
@@ -129,7 +129,7 @@ export default function NetworthHistory() {
                                                 </td>
                                             </tr>
                                         )}
-                                    </>
+                                    </Fragment>
                                 )
                             })}
                         </tbody>
