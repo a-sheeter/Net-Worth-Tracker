@@ -40,12 +40,9 @@ svg {
 }
 
 .center-all {
-    height: 75vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+    display:grid;
+    place-items: center;
+    min-height: 90vh;
 }
 
 .center-all>div {

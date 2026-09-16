@@ -73,8 +73,8 @@ export default function Register() {
     return (
         <div className="center-all">
             <div className="small-max-width">
-                <h4 className="text-align-center l-text">Register User</h4>
-                <h1 className="green-text text-align-center xl-text">Net Worth<br /> Tracker</h1>
+                <h2 className="text-align-center">Register User</h2>
+                <h1 className="green-text text-align-center l-text">Net Worth<br /> Tracker</h1>
                 <form onSubmit={handleRegister}>
                     <div>
                         <label htmlFor="name">Name</label>
