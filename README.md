@@ -1,54 +1,58 @@
-Tagline
+<p><strong>Tagline</strong><p><br>
 A simple, private way to track your financial progress over time.
 
-Overview
+<p><strong>Overview</strong><p><br>
 Net Worth Tracker is a personal finance application designed to make tracking net worth simple, visual, and easy to understand. Users can record assets and liabilities, monitor changes in their net worth over time, and view their financial progress through charts and historical snapshots.
 
 Rather than functioning as a budgeting platform or financial institution, Net Worth Tracker focuses on one core purpose: giving users a clear picture of their overall financial position and how it changes over time.
 
 The application was built as a personal development project to strengthen my skills in React, database design, authentication, data visualization, and responsive interface development.
 
-Features
+<p><strong>Features</strong><p><br>
 
-Secure user authentication
-Add and manage financial accounts
-Track assets and liabilities
-Calculate total net worth
-Save historical net worth snapshots
-View net worth changes over time
-Interactive net worth history chart
-Asset allocation visualization
-Monthly percentage change tracking
-Expandable account history
-Responsive design for desktop and mobile
+<ul>
+<li>Secure user authentication</li>
+<li>Add and manage financial accounts</li>
+<li>Track assets and liabilities</li>
+<li>Calculate total net worth</li>
+<li>Save historical net worth snapshots</li>
+<li>View net worth changes over time</li>
+<li>Interactive net worth history chart</li>
+<li>Asset allocation visualization</li>
+<li>Monthly percentage change tracking</li>
+<li>Expandable account history</li>
+<li>Responsive design for desktop and mobile</li>
+</ul>
 
-Technology Stack
+<p><strong>Technology Stack</strong><p><br>
 
-React
-Vite
-Supabase
-React Router
-Recharts
-CSS3
+<ul>
+<li>React</li>
+<li>Vite</li>
+<li>Supabase</li>
+<li>React Router</li>
+<li>Recharts</li>
+<li>CSS3</li>
+</ul>
 
-Data & Privacy
+<p><strong>Data & Privacy</strong><p><br>
 Net Worth Tracker uses Supabase for authentication and data storage. User financial information is associated with the authenticated user's account and protected through Supabase Row Level Security (RLS).
 
 The application is designed so users can track their financial information without relying on a third party financial aggregation service or connecting external bank accounts.
 
-Installation
+<p><strong>Installation</strong><p><br>
 
-git clone https://github.com/yourusername/Net-Worth-Tracker.git
-cd Net-Worth-Tracker
-npm install
+git clone https://github.com/yourusername/Net-Worth-Tracker.git<br>
+cd Net-Worth-Tracker<br>
+npm install<br>
 npm run dev
 
-Environment Variables
+<p><strong>Environment Variables</strong><p><br>
 
 Create a .env file in the root directory and add:
 
-VITE_SUPABASE_URL=
+VITE_SUPABASE_URL=<br>
 VITE_SUPABASE_PUBLISHABLE_KEY=
 
-License
+<p><strong>License</strong><p><br>
 MIT License
