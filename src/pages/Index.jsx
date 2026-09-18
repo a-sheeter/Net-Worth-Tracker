@@ -45,7 +45,8 @@ export default function Index() {
             const { data, error } = await supabase
                 .from("networth_snapshots")
                 .select("*")
-                .order("created_at", { ascending: true });
+                .order("created_at", { ascending: true })
+                .eq("user_id", user.id);
 
             if (error) {
                 console.log(error);
