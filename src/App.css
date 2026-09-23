@@ -22,20 +22,21 @@ svg {
 .grid {
     display:grid;
     gap:15px;
+    min-width:0;
 }
 
 .grid-3 {
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
 }
 
 .grid-2 {
-    margin-top:15px;
-    grid-template-columns: 2fr 1fr;
+    margin-top: 15px;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
 }
 
 @media screen and (max-width:768px) {
     .grid-3, .grid-2 {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 }
 

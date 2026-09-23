@@ -42,11 +42,13 @@ export default function Index() {
 
     useEffect(() => {
         async function getSnapshots() {
+            if (!user) return;
+
             const { data, error } = await supabase
                 .from("networth_snapshots")
                 .select("*")
-                .order("created_at", { ascending: true })
-                .eq("user_id", user.id);
+                .eq("user_id", user.id)
+                .order("created_at", { ascending: true });
 
             if (error) {
                 console.log(error);
@@ -56,7 +58,7 @@ export default function Index() {
             setSnapshots(data);
         }
         getSnapshots();
-    }, []);
+    }, [user]);
 
 
     /* --- hooks --- */
@@ -79,7 +81,7 @@ export default function Index() {
     }));
 
     const renderPieShape = (props) => {
-        const {index, ...sectorProps} = props;
+        const { index, ...sectorProps } = props;
 
         return (
             <Sector
@@ -177,8 +179,8 @@ export default function Index() {
 
                             {monthlyPercentageChange !== null && (
                                 <div className="horizontal-inline-small">
-                                    <span className="green-text horizontal-inline-small">{monthlyPercentageChange >= 0 ? (<svg width="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="rgb(177, 255, 80)" d="M416 224C398.3 224 384 209.7 384 192C384 174.3 398.3 160 416 160L576 160C593.7 160 608 174.3 608 192L608 352C608 369.7 593.7 384 576 384C558.3 384 544 369.7 544 352L544 269.3L374.6 438.7C362.1 451.2 341.8 451.2 329.3 438.7L224 333.3L86.6 470.6C74.1 483.1 53.8 483.1 41.3 470.6C28.8 458.1 28.8 437.8 41.3 425.3L201.3 265.3C213.8 252.8 234.1 252.8 246.6 265.3L352 370.7L498.7 224L416 224z"/></svg>) : (<svg width="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="rgb(177, 255, 80)" d="M416 416C398.3 416 384 430.3 384 448C384 465.7 398.3 480 416 480L576 480C593.7 480 608 465.7 608 448L608 288C608 270.3 593.7 256 576 256C558.3 256 544 270.3 544 288L544 370.7L374.6 201.3C362.1 188.8 341.8 188.8 329.3 201.3L224 306.7L86.6 169.4C74.1 156.9 53.8 156.9 41.3 169.4C28.8 181.9 28.8 202.2 41.3 214.7L201.3 374.7C213.8 387.2 234.1 387.2 246.6 374.7L352 269.3L498.7 416L416 416z"/></svg>)}
-                                    {" "}{Math.abs(monthlyPercentageChange.toFixed(1))}%</span> vs. last month
+                                    <span className="green-text horizontal-inline-small">{monthlyPercentageChange >= 0 ? (<svg width="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="rgb(177, 255, 80)" d="M416 224C398.3 224 384 209.7 384 192C384 174.3 398.3 160 416 160L576 160C593.7 160 608 174.3 608 192L608 352C608 369.7 593.7 384 576 384C558.3 384 544 369.7 544 352L544 269.3L374.6 438.7C362.1 451.2 341.8 451.2 329.3 438.7L224 333.3L86.6 470.6C74.1 483.1 53.8 483.1 41.3 470.6C28.8 458.1 28.8 437.8 41.3 425.3L201.3 265.3C213.8 252.8 234.1 252.8 246.6 265.3L352 370.7L498.7 224L416 224z" /></svg>) : (<svg width="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="rgb(177, 255, 80)" d="M416 416C398.3 416 384 430.3 384 448C384 465.7 398.3 480 416 480L576 480C593.7 480 608 465.7 608 448L608 288C608 270.3 593.7 256 576 256C558.3 256 544 270.3 544 288L544 370.7L374.6 201.3C362.1 188.8 341.8 188.8 329.3 201.3L224 306.7L86.6 169.4C74.1 156.9 53.8 156.9 41.3 169.4C28.8 181.9 28.8 202.2 41.3 214.7L201.3 374.7C213.8 387.2 234.1 387.2 246.6 374.7L352 269.3L498.7 416L416 416z" /></svg>)}
+                                        {" "}{Math.abs(monthlyPercentageChange.toFixed(1))}%</span> vs. last month
                                 </div>
                             )}
                         </div>
@@ -242,25 +244,27 @@ export default function Index() {
                             </div>
 
                             <div className="chart-bg">
-                                <PieChart width={300} height={300}>
+                                <ResponsiveContainer width="100%" height={300}>
+                                    <PieChart>
 
-                                    <Pie
-                                        data={pieData}
-                                        dataKey="value"
-                                        nameKey="name"
-                                        outerRadius={100}
-                                        label={renderPercentage}
-                                        labelLine={false}
-                                        shape={renderPieShape}
-                                    >
-                                    </Pie>
+                                        <Pie
+                                            data={pieData}
+                                            dataKey="value"
+                                            nameKey="name"
+                                            outerRadius={100}
+                                            label={renderPercentage}
+                                            labelLine={false}
+                                            shape={renderPieShape}
+                                        >
+                                        </Pie>
 
-                                    <Tooltip
-                                        formatter={(value) =>
-                                            `$${value.toLocaleString()}`
-                                        }
-                                    />
-                                </PieChart>
+                                        <Tooltip
+                                            formatter={(value) =>
+                                                `$${value.toLocaleString()}`
+                                            }
+                                        />
+                                    </PieChart>
+                                </ResponsiveContainer>
                             </div>
                         </div>
                     </div>
