@@ -102,6 +102,7 @@ button, .btn {
 }
 
 .green-btn {
+    color:black !important;
     background: var(--green);
     border: 2px solid var(--green);
     transition: all 0.2s ease;
@@ -189,11 +190,21 @@ h4 {
 
 .xl-text {
     font-size: 7rem;
+    margin-bottom:25px;
 }
 
 @media screen and (max-width: 766px) {
     .xl-text {
         font-size: 5rem;
+    }
+}
+
+@media screen and (max-width:480px) {
+    .l-text {
+    font-size: 1.5rem;
+}
+    .xl-text {
+        font-size: 3.5rem;
     }
 }
 
